@@ -26,7 +26,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.typo3.org
  */
-class TYPO3SniffPool_Sniffs_WhiteSpace_AssignmentArithmeticAndComparisonSpaceSniff implements PHP_CodeSniffer_Sniff
+class typo3sniffpool_Sniffs_WhiteSpace_AssignmentArithmeticAndComparisonSpaceSniff implements PHP_CodeSniffer_Sniff
 {
     /**
      * A list of tokenizers this sniff supports
