@@ -1,3 +1,6 @@
+.. image:: https://badge.waffle.io/typo3-ci/typo3sniffpool.png?label=ready&title=Ready 
+ :target: https://waffle.io/typo3-ci/typo3sniffpool
+ :alt: 'Stories in Ready'
 ====================================
 The TYPO3 Sniff Pool
 ====================================
