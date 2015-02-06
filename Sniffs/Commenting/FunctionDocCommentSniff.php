@@ -60,7 +60,7 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionDocCommentSniff implements PHP_Co
     private $_methodName = '';
 
     /**
-     * The position in the stack where the fucntion token was found.
+     * The position in the stack where the function token was found.
      *
      * @var int
      */
