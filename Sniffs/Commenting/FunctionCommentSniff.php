@@ -380,6 +380,14 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs
                     $suggestedTypeHint = '';
                     if (strpos($suggestedName, 'array') !== false) {
                         $suggestedTypeHint = 'array';
+                    } else if (strpos($suggestedName, 'string') !== false) {
+                        $suggestedTypeHint = 'string';
+                    } else if (strpos($suggestedName, 'int') !== false) {
+                        $suggestedTypeHint = 'int';
+                    } else if (strpos($suggestedName, 'bool') !== false) {
+                        $suggestedTypeHint = 'bool';
+                    } else if (strpos($suggestedName, 'float') !== false) {
+                        $suggestedTypeHint = 'float';
                     } else if (strpos($suggestedName, 'callable') !== false) {
                         $suggestedTypeHint = 'callable';
                         // TODO: AllowedTypes are the long version but we only allow the short version.
