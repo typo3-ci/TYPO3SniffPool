@@ -156,7 +156,7 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs
                     // somewhere in the function that returns something.
                     if (isset($tokens[$stackPtr]['scope_closer']) === true) {
                         $endToken    = $tokens[$stackPtr]['scope_closer'];
-                        $returnToken = $phpcsFile->findNext(T_RETURN, $stackPtr, $endToken);
+                        $returnToken = $phpcsFile->findNext([T_RETURN, T_YIELD], $stackPtr, $endToken);
                         if ($returnToken === false) {
                             $error = 'Function return type is not void, but function has no return statement';
                             $phpcsFile->addError($error, $return, 'InvalidNoReturn');
@@ -380,6 +380,14 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs
                     $suggestedTypeHint = '';
                     if (strpos($suggestedName, 'array') !== false) {
                         $suggestedTypeHint = 'array';
+                    } else if (strpos($suggestedName, 'string') !== false) {
+                        $suggestedTypeHint = 'string';
+                    } else if (strpos($suggestedName, 'int') !== false) {
+                        $suggestedTypeHint = 'int';
+                    } else if (strpos($suggestedName, 'bool') !== false) {
+                        $suggestedTypeHint = 'bool';
+                    } else if (strpos($suggestedName, 'float') !== false) {
+                        $suggestedTypeHint = 'float';
                     } else if (strpos($suggestedName, 'callable') !== false) {
                         $suggestedTypeHint = 'callable';
                         // TODO: AllowedTypes are the long version but we only allow the short version.
