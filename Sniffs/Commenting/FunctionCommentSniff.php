@@ -156,7 +156,7 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs
                     // somewhere in the function that returns something.
                     if (isset($tokens[$stackPtr]['scope_closer']) === true) {
                         $endToken    = $tokens[$stackPtr]['scope_closer'];
-                        $returnToken = $phpcsFile->findNext(T_RETURN, $stackPtr, $endToken);
+                        $returnToken = $phpcsFile->findNext([T_RETURN, T_YIELD], $stackPtr, $endToken);
                         if ($returnToken === false) {
                             $error = 'Function return type is not void, but function has no return statement';
                             $phpcsFile->addError($error, $return, 'InvalidNoReturn');
