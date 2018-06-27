@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\ControlStructures;
+
 /**
  * TYPO3SniffPool_Sniffs_ControlStructures_SwitchDeclarationSniff.
  *
@@ -14,6 +16,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * TYPO3SniffPool_Sniffs_ControlStructures_SwitchDeclarationSniff.
@@ -31,7 +36,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class TYPO3SniffPool_Sniffs_ControlStructures_SwitchDeclarationSniff implements PHP_CodeSniffer_Sniff
+class SwitchDeclarationSniff implements Sniff
 {
 
     /**
@@ -67,13 +72,12 @@ class TYPO3SniffPool_Sniffs_ControlStructures_SwitchDeclarationSniff implements 
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current
-     *                                        token in the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -339,13 +343,13 @@ class TYPO3SniffPool_Sniffs_ControlStructures_SwitchDeclarationSniff implements 
      *
      * Note that nested switches are ignored.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position to start looking at.
-     * @param int                  $end       The position to stop looking at.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param int $end The position to stop looking at.
      *
      * @return int | bool
      */
-    private function _findNextCase(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $end)
+    private function _findNextCase(File $phpcsFile, $stackPtr, $end)
     {
         $tokens = $phpcsFile->getTokens();
         while (($stackPtr = $phpcsFile->findNext(array(T_CASE, T_DEFAULT, T_SWITCH), $stackPtr, $end)) !== false) {

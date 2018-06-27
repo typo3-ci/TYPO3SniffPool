@@ -70,6 +70,7 @@
 
     <target name="phpunit" description="Run unit tests with PHPUnit">
         <exec executable="phpunit" failonerror="true">
+            <arg value="--bootstrap=./vendor/squizlabs/php_codesniffer/tests/bootstrap.php"/>
             <arg value="./vendor/squizlabs/php_codesniffer/tests/AllTests.php"/>
         </exec>
     </target>

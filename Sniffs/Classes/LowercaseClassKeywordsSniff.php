@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\Classes;
+
 /**
  * TYPO3_Sniffs_Classes_LowercaseClassKeywordsSniff.
  *
@@ -11,6 +13,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
+
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\LowercaseClassKeywordsSniff as PhpCsLowercaseClassKeywordsSniff;
+
 /**
  * Ensures all class keywords are lowercase.
  *
@@ -21,7 +26,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class TYPO3SniffPool_Sniffs_Classes_LowercaseClassKeywordsSniff extends Squiz_Sniffs_Classes_LowercaseClassKeywordsSniff
+class LowercaseClassKeywordsSniff extends PhpCsLowercaseClassKeywordsSniff
 {
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\Commenting;
+
 /**
  * TYPO3SniffsPool_Commenting_FunctionCommentSniff
  *
@@ -15,6 +17,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Parses and verifies the doc comments for functions / methods.
@@ -45,7 +50,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs_Commenting_FunctionCommentSniff
+class FunctionCommentSniff extends FunctionCommentSniff
 {
     protected static $allowedTypes = array(
                                       'array',
@@ -64,14 +69,13 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs
     /**
      * Process the return comment of this function comment.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param int $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processReturn(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processReturn(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -181,14 +185,13 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs
     /**
      * Process any throw tags that this function comment has.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param int $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processThrows(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processThrows(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -244,16 +247,15 @@ class TYPO3SniffPool_Sniffs_Commenting_FunctionCommentSniff extends Squiz_Sniffs
     /**
      * Process the function parameter comments.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param int $commentStart The position in the stack where
      *                                           the comment started.
      *
-     * @throws \PHP_CodeSniffer_Exception
+     * @throws \Exception
      * @return void
      */
-    protected function processParams(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processParams(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 

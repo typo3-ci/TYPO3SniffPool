@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\WhiteSpace;
+
 /**
  * TYPO3_Sniffs_WhiteSpace_DisallowSpaceIndentSniff.
  *
@@ -12,6 +14,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+
 /**
  * Checks that code is indent with tabs; spaces are not allowed.
  *
@@ -22,7 +28,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class TYPO3SniffPool_Sniffs_WhiteSpace_DisallowSpaceIndentSniff implements PHP_CodeSniffer_Sniff
+class DisallowSpaceIndentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -47,13 +53,12 @@ class TYPO3SniffPool_Sniffs_WhiteSpace_DisallowSpaceIndentSniff implements PHP_C
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile All the tokens found in the document.
-     * @param int                  $stackPtr  The position of the current token in
-     *                                        the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Make sure this is the first open tag.
@@ -111,19 +116,15 @@ class TYPO3SniffPool_Sniffs_WhiteSpace_DisallowSpaceIndentSniff implements PHP_C
     /**
      * Check if the code is intend with spaces
      *
-     * @param PHP_CodeSniffer_File $phpcsFile         The file being scanned.
-     * @param int                  $stackPtr          The token at the end of
-     *                                                the line.
-     * @param string               $lineContent       The content of the line.
-     * @param boolean              $tokenIsDocComment True if the token is a
-     *                                                doc block comment.
-     *                                                False otherwise
-     * @param boolean              $tokenIsString     True if the token is a string.
-     *                                                False otherwise.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param string $lineContent The content of the line.
+     * @param bool $tokenIsDocComment True if the token is a doc block comment. False otherwise
+     * @param bool $tokenIsString True if the token is a string.  False otherwise.
      *
      * @return void
      */
-    protected function ifSpaceIndent(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $lineContent, $tokenIsDocComment, $tokenIsString)
+    protected function ifSpaceIndent(File $phpcsFile, $stackPtr, $lineContent, $tokenIsDocComment, $tokenIsString)
     {
         // Is the line intent by something?
         if (preg_match('/(^\S)|(^\s\*)|(^$)/', $lineContent) === 1) {

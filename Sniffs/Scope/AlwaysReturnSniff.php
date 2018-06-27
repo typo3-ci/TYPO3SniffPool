@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\Scope;
+
 /**
  * TYPO3_Sniffs_Scope_AlwaysReturnSniff.
  *
@@ -15,6 +17,10 @@
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
 
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
+
 /**
  * Checks that a function / method always have a return value if it return something.
  *
@@ -27,7 +33,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_Sniff
+class AlwaysReturnSniff implements Sniff
 {
 
     /**
@@ -38,9 +44,9 @@ class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_S
     public $supportedTokenizers = array('PHP');
 
     /**
-     * The current PHP_CodeSniffer_File object we are processing.
+     * The current File object we are processing.
      *
-     * @var PHP_CodeSniffer_File
+     * @var File
      */
     protected $currentFile = null;
 
@@ -67,13 +73,12 @@ class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_S
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in
-     *                                        the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens            = $phpcsFile->getTokens();
         $this->currentFile = $phpcsFile;
@@ -100,7 +105,7 @@ class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_S
             return;
         }
 
-        $find   = PHP_CodeSniffer_Tokens::$methodPrefixes;
+        $find   = Tokens::$methodPrefixes;
         $find[] = T_WHITESPACE;
 
         // Lets have a look if there is a doc comment.
@@ -205,15 +210,14 @@ class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_S
      *
      * Attention. This function is called recursively.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned
-     * @param integer              $start     Token number where the checks will
-     *                                        begin
-     * @param integer              $end       Token number where the checks will end
-     * @param integer              $depth     Token to search
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param int $end Token number where the checks will end
+     * @param int $depth Token to search
      *
      * @return bool
      */
-    protected function gotEveryWayOfControlStructureAReturnStatement(PHP_CodeSniffer_File $phpcsFile, $start, $end, $depth)
+    protected function gotEveryWayOfControlStructureAReturnStatement(File $phpcsFile, $start, $end, $depth)
     {
         $result = true;
         $tokens = $phpcsFile->getTokens();
@@ -340,18 +344,15 @@ class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_S
      * If you got a token of an elseif or else statement, this method will
      * return the number of the corresponding if token.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned
-     * @param integer              $start     Token number where the checks will
-     *                                        begin
-     * @param integer              $end       Token number where the checks will
-     *                                        end
-     * @param integer              $token     Token to search
-     * @param integer              $level     Level of intend (how deep is the
-     *                                        token?)
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param int $end Token number where the checks will end
+     * @param int $token Token to search
+     * @param int $level Level of intend (how deep is the token?)
      *
-     * @return integer                        Token number of found token
+     * @return int Token number of found token
      */
-    protected function getPreviousTokenOnLevel(PHP_CodeSniffer_File $phpcsFile, $start, $end, $token, $level)
+    protected function getPreviousTokenOnLevel(File $phpcsFile, $start, $end, $token, $level)
     {
         $tokens = $phpcsFile->getTokens();
         do {
@@ -379,17 +380,14 @@ class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_S
      *      }                   << End (the "}")
      *  }
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned
-     * @param integer              $start     Token number where the checks will
-     *                                        begin
-     * @param integer              $end       Token number where the checks will
-     *                                        end
-     * @param integer              $level     Level of intend (how deep is the
-     *                                        token?)
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
+     * @param int $end Token number where the checks will end
+     * @param int $level Level of intend (how deep is the token?)
      *
      * @return bool
      */
-    protected function isThereAElseWithReturnOnNextLevel(PHP_CodeSniffer_File $phpcsFile, $start, $end, $level)
+    protected function isThereAElseWithReturnOnNextLevel(File $phpcsFile, $start, $end, $level)
     {
         $tokens    = $phpcsFile->getTokens();
         $elseToken = $this->getPreviousTokenOnLevel($phpcsFile, $end, $start, T_ELSE, ($level + 1));
@@ -425,12 +423,12 @@ class TYPO3SniffPool_Sniffs_Scope_AlwaysReturnSniff implements PHP_CodeSniffer_S
      * return statements.
      *
      * @param array   $tokens     Token array of file
-     * @param integer $tokenStart Integer, token number where the checks will begin
-     * @param integer $tokenEnd   Integer, token number where the checks will end
-     * @param bool    $nonEmpty   If true, function returns true if there is a
-     *                            non empty return statement like "return $foo;"
-     *                            If false, function returns true if there is
-     *                            a empty return statement like "return;"
+     * @param int $tokenStart Integer, token number where the checks will begin
+     * @param int $tokenEnd Integer, token number where the checks will end
+     * @param bool $nonEmpty If true, function returns true if there is a
+     *                       non empty return statement like "return $foo;"
+     *                       If false, function returns true if there is
+     *                       a empty return statement like "return;"
      *
      * @return bool
      */
