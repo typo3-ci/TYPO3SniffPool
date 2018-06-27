@@ -86,7 +86,11 @@ class ValidCommentLineLengthSniff implements Sniff
         }
 
         if ($commentLineLength > $this->maxCommentLength) {
-            $phpcsFile->addWarning('Comment lines should be kept within a limit of about ' . $this->maxCommentLength . ' characters but this comment has ' . $commentLineLength . ' character!', $stackPtr);
+            $phpcsFile->addWarning(
+                'Comment lines should be kept within a limit of about ' . $this->maxCommentLength . ' characters but this comment has ' . $commentLineLength . ' character!',
+                $stackPtr,
+                'CommentLineLength'
+            );
         }
 
     }//end process()

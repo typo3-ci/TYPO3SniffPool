@@ -17,6 +17,7 @@ namespace TYPO3SniffPool\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
+use PHP_CodeSniffer\Util\Common;
 
 /**
  * Checks the naming of member variables.
@@ -160,7 +161,7 @@ class ValidVariableNameSniff extends AbstractVariableSniff
             return;
         }
 
-        $isLowerCamelCase = PHP_CodeSniffer::isCamelCaps($variableName, false, true, true);
+        $isLowerCamelCase = Common::isCamelCaps($variableName, false, true, true);
         if ($hasUnderscores !== false) {
             $messageData = array(
                             $scope,

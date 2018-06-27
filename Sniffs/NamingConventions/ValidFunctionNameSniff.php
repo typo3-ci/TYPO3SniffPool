@@ -19,6 +19,7 @@ namespace TYPO3SniffPool\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Common;
 
 /**
  * Checks that the functions named by lowerCamelCase
@@ -80,7 +81,7 @@ class ValidFunctionNameSniff implements Sniff
         }
 
         $hasUnderscores   = stripos($tokens[$functionName]['content'], '_');
-        $isLowerCamelCase = PHP_CodeSniffer::isCamelCaps(
+        $isLowerCamelCase = Common::isCamelCaps(
             $tokens[$functionName]['content'],
             false,
             true,

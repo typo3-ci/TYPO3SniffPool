@@ -19,7 +19,7 @@ namespace TYPO3SniffPool\Sniffs\Commenting;
  */
 
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\FunctionCommentSniff as SquizFunctionCommentSniff;
 
 /**
  * Parses and verifies the doc comments for functions / methods.
@@ -50,7 +50,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class FunctionCommentSniff extends FunctionCommentSniff
+class FunctionCommentSniff extends SquizFunctionCommentSniff
 {
     protected static $allowedTypes = array(
                                       'array',
