@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\ControlStructures;
+
 /**
  * TYPO3SniffPool_Sniffs_ControlStructures_TernaryConditionalOperatorSniff.
  *
@@ -11,6 +13,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+
 /**
  * Checks for the correct usage of the ternary conditional operator
  *
@@ -21,7 +27,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class TYPO3SniffPool_Sniffs_ControlStructures_TernaryConditionalOperatorSniff implements PHP_CodeSniffer_Sniff
+class TernaryConditionalOperatorSniff implements Sniff
 {
 
 
@@ -40,13 +46,12 @@ class TYPO3SniffPool_Sniffs_ControlStructures_TernaryConditionalOperatorSniff im
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in
-     *                                        the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $isNested = $phpcsFile->findNext(
             T_INLINE_THEN,

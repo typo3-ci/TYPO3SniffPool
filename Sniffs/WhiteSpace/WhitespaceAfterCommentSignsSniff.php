@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\WhiteSpace;
+
 /**
  * TYPO3_Sniffs_WhiteSpace_WhitespaceAfterCommentSignsSniff.
  *
@@ -11,6 +13,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+
 /**
  * Checks the indent of comments
  *
@@ -21,7 +27,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
-class TYPO3SniffPool_Sniffs_WhiteSpace_WhitespaceAfterCommentSignsSniff implements PHP_CodeSniffer_Sniff
+class WhitespaceAfterCommentSignsSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports
@@ -46,13 +52,12 @@ class TYPO3SniffPool_Sniffs_WhiteSpace_WhitespaceAfterCommentSignsSniff implemen
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in
-     *                                        the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens      = $phpcsFile->getTokens();
         $commentLine = '';

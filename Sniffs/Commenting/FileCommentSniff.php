@@ -1,4 +1,6 @@
 <?php
+namespace TYPO3SniffPool\Sniffs\Commenting;
+
 /**
  * Parses and verifies the TYPO3 copyright notice.
  *
@@ -12,6 +14,9 @@
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
 
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+
 /**
  * Parses and verifies the TYPO3 copyright notice.
  *
@@ -23,7 +28,7 @@
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
 
-class TYPO3SniffPool_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_Sniff
+class FileCommentSniff implements Sniff
 {
     /**
      * The file comment in TYPO3 CMS must be the copyright notice.
@@ -61,13 +66,12 @@ class TYPO3SniffPool_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniff
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token
-     *                                        in the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack passed in $tokens.
      *
      * @return int
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
